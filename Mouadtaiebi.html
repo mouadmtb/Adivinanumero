@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>adivinar numero entre 1 y 100</title>
+    <script src="otrocodigo.js"></script>
+    <style>
+
+        body {
+            text-align: center;
+            background-color: aqua;
+        }
+        /* el input, el select y el boton tendran el mismo formato */
+        input, select, button {
+       padding:7px; 
+       font-size:15px; 
+       text-align:center; 
+       border-width:4px; 
+       border-radius:10px; 
+       border-style:solid 
+       background-color: visited; 
+       border-color:crimson;
+        }
+        #introduce{
+            font-size: 15px;
+        }
+        h1{
+            text-shadow: red 0 0 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Intenta adivinar un numero entre 1 y 100</h1>
+
+        <div id="introduce">
+            ¿Con cuantos intentos quieres probar?
+            <!--Lista desplegable-->
+    <select id="intentos" name="intentos">
+      <option value="20">facil</option>
+      <option value="10">medio</option>
+      <option value="5">dificil</option>
+      <option value="1">muy dificil</option>
+      <option value="2000">ilimitado</option>
+    </select>
+ 
+    
+        </div>
+        <br><button value="suerte!" id="btnenvio" onclick="jugar()" >Jugar </button> <!--Boton de envio-->
+        <div id="reiniciar"></div> <!--Aqui se creara el boton de recarga-->
+        
+    <div id="respanteriores"></div> <!--Aqui las respuestas anteruiores dadas-->
+    
+    
+</body>
+</html>
