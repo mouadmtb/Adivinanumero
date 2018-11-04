@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>adivinar numero entre 1 y 100</title>
-    <script src="otrocodigo.js"></script>
+    <script src="Mouad_Taiebi.js"></script>
     <style>
 
         body {
@@ -32,23 +32,25 @@
 <body>
 
     <h1>Intenta adivinar un numero entre 1 y 100</h1>
-
-        <div id="introduce">
-            ¿Con cuantos intentos quieres probar?
-            <!--Lista desplegable-->
-    <select id="intentos" name="intentos">
-      <option value="20">facil</option>
-      <option value="10">medio</option>
-      <option value="5">dificil</option>
-      <option value="1">muy dificil</option>
-      <option value="2000">ilimitado</option>
+<form onsubmit="return comprobar()">
+   <div id="introduce">
+    Selecciona primero el número de intentos posibles:
+    <select type="text" name="opciones" id="intentos">
+        <option value="9">9 facil </option>
+        <option value="3">3 dificil</option>
+        <option value="4">4 ahi va...</option>
+        <option value="5">5 normal</option>
+        <option value="1">1 imposible</option>
+        <option value="2000">SIN LIMITACION</option>
     </select>
  
     
         </div>
-        <br><button value="suerte!" id="btnenvio" onclick="jugar()" >Jugar </button> <!--Boton de envio-->
-        <div id="reiniciar"></div> <!--Aqui se creara el boton de recarga-->
+        <br><input type="submit" value="enviar" id="btEnviar"> <!--Boton de envio-->
         
+        <div id="recarga"></div> <!--Aqui se creara el boton de recarga-->
+    </form>  
+    
     <div id="respanteriores"></div> <!--Aqui las respuestas anteruiores dadas-->
     
     

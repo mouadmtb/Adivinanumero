@@ -1,87 +1,80 @@
-//Ponemos una variable con el calculo del numero aleatorio
-var aleatorio = Math.floor((Math.random() * 100) + 1);
-var contador = 0;
-
-var intentos = 0;
-//Para obtener el numero aleatorio de la lista desplegable
-function jugar() {
-        // índice que se ha seleccionado
-        var x = document.getElementById("intentos").selectedIndex;
-
-        // array con las opciones del select
-        var y = document.getElementById("intentos").options;
-    
-        intentos = y[x].value;
-    
-      }
-
-
-function comprobar() {
-//ahora comprobamos que el numero de intentos esta habilitado
-    
-if (document.getElementById("intentos").disabled === false) {
-    if (isNumber(intentos) && intentos > 0) {
-       document.getElementById("introduce").innerHTML += "<br>Indica un numero entre 1 y 100: <input type='text' name='numero' id='adivina' disabled >";
-        document.getElementById("intentos").disabled = true;
-        document.getElementById("adivina").disabled = false;
-         document.getElementById("adivina").focus();
-    }
-}
-else {
-    //cogemos el div que contendra las respuestas
-    var respuesta = document.getElementById("respanteriores").innerHTML;
-    
-    if (contador < intentos) {
-        //obtenemos el numero que ha introducido el usuario
-        var adivinado = document.getElementById("adivina").value;
-        
-        if (isNumber(adivinado) && adivinado > 0 && adivinado <= 100) {
-            contador += 1;
-            if (adivinado > numale) {
-                //si el numero dado es mayor al numero aleatorio
-                respuesta += "<br> El numero aleatorio es menor, baja mas"
-                document.getElementById("adivina").focus();
+  // buscamos un numero aleatorio entre 1 y 100
+        var aleatorio=Math.floor((Math.random()*100)+1);
+        var contador=0;
+ 
+        function comprobar() {
+            
+            // numero de respuestas
+            var intentos=document.getElementById("intentos").value;
+ 
+            if(document.getElementById("intentos").disabled==false) {
+                if(isNumber(intentos) && intentos>0) {
+                    document.getElementById("introduce").innerHTML+="<br>Indica un numero entre 1 y 100: <input type='text' name='numero'' id='numero'' disabled >"
+                    document.getElementById("intentos").disabled=true;
+                    document.getElementById("numero").disabled=false;
+                    document.getElementById("numero").focus();
+                }
+            }else{
+                // obtenemos el contenido del div que contiene las respuestas
+                var respanteriores=document.getElementById("respanteriores").innerHTML;
+ 
+                if(contador<intentos)
+                {
+                    // obtenemos el numero introducido por el usuario
+                    var numero=document.getElementById("numero").value;
+ 
+                    if(isNumber(numero) && numero>0 && numero<100)
+                    {
+                        // aumentanos el numero de la respuesta dada
+                        contador+=1;
+ 
+                        if(numero>aleatorio){
+                            //Si El numero propuesto es superior se incluye en el texo:
+                            respanteriores+="<br>"+numero+" - El numero que buscas es inferior";
+                            document.getElementById("numero").focus();
+                        }
+                        else if(numero<aleatorio){
+                            //Si El numero propuesto es inferior se incluye en el texo:
+                            respanteriores+="<br>"+numero+" - El numero que buscas es superior";
+                            document.getElementById("numero").focus();
+                        }else{
+                            //Si aciertas el numero elegido, salta una felicitacion:
+                            respanteriores+="<br>"+numero+" - HAS ACETADO!!<br>";
+ 
+                            fin()
+                        }
+                        // vaciamos el valor del numero
+                        document.getElementById("numero").value="";
+                    }else{
+                        respanteriores+="<br>"+numero+" - Tiene que ser un valor numerico comprendido entre 1 y 100</span>";
+                    }
+                }else{
+                    respanteriores+="<br>NO HAS ACETADO!! El numero era el "+aleatorio+"<br>";
+ 
+                    fin()
+                }
+ 
+                // ponemos nuevamente todas las respuestas
+                document.getElementById("respanteriores").innerHTML=respanteriores;
             }
-             else if (adivinado < aleatorio) {
-                //si es menor al aleatorio...
-                respuesta += "<br> El numero es mas grande, te quedaste corto!"
-                document.getElementById("adivina").focus();
-            }
-            else {
-                //si acierta..
-                respuesta += "<br> HAS ACERTADO!! : " + adivinado;
-                respuesta.backgroundColor='orange';
-                gameover();
-            }
-            //se vacia el numero
-            document.getElementById("adivina").value="";
+ 
+            // devolvemos false para que el formulario no envie los valores
+            return false;
         }
-        else {
-            respuesta += "<br>" + adivinado + "ERROR! Tiene que sder un numero entre 1 y 100"
+ 
+         /* Funcion que se ejecuta al finalizar el juego ya sea por 
+            haber descubierto el numero o por finalizar el numero de intentos */
+        function fin(){
+            document.getElementById("numero").disabled=true; // deshabilitamos el casilla de entrar el numero, y el boton enviar
+            document.getElementById("btnEnviar").disabled=true;
+            //añadimos un boton de recarga para volver a jugar
+            document.getElementById("recarga").innerHTML="<button onclick='window.location.href=window.location.href'>Recargar</button>";
+            document.getElementById("recarga").innerHTML+="<button onclick='href=index.html'>Volver al indice</button>";
         }
-    }
-    else{ adivinado += "<br> NO LO HAS CONSEGUIDO! El numero era: " + aleatorio 
-         respuesta.backgroundColor= 'red'
-         gameover()
-        }
-    //ponemos las respuestas
-     document.getElementById("respanteriores").innerHTML= respuesta;
-}
-    // se devuelve false para que no se envien mas cosas
-    return false;
-}
+ 
+        //Funcion para comprobar que los caracteres añadidos son numeros
+        function isNumber(n){
+            return !isNaN(parseFloat(n)) && isFinite(n);
+                            }
+  
 
-
-//Esta funcion es para recargar la pagina
-
-function recargar()
-	{
-		location.reload(true);
-	}
-//Esta funcion se encargara de finalizar el juego despues de que se cumplan las condiciones anteriores
-
-function gameover() {
-    document.getElementById("adivina").disabled=true;
-    document.getElementById("btnenvio").disabled=true;
-    document.getElementById("reiniciar").innerHTML="<button onclick='recargar()'>Recargar</button>";
-}
